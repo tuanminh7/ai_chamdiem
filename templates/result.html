@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Kết quả bài làm{% endblock %}
+{% block content %}
+<h2> Kết quả bài làm</h2>
+<p><strong>Số câu đúng:</strong> {{ score }} / {{ total_questions }}</p>
+
+<!-- Bảng kết quả từng câu -->
+{% if total_questions is defined and results is defined %}
+  <table border="1" cellpadding="8" style="margin-top: 20px; border-collapse: collapse; width: 100%;">
+    <thead style="background-color: #f0f0f0;">
+      <tr>
+        <th style="text-align: center;">Câu số</th>
+        <th style="text-align: center;">Trạng thái</th>
+        <th>Ghi chú</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in range(total_questions|int) %}
+        <tr>
+          <td style="text-align: center;">{{ i + 1 }}</td>
+          {% if results[i].status == "Sai" %}
+            <td style="color: red; text-align: center;">❌ Sai</td>
+            <td>{{ results[i].note }}</td>
+          {% else %}
+            <td style="color: green; text-align: center;">✅ Đúng</td>
+            <td>—</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p style="color: red;">⚠️ Không nhận được dữ liệu kết quả. Vui lòng kiểm tra lại hàm <code>submit</code>.</p>
+{% endif %}
+
+<!-- Các lỗi học sinh mắc phải -->
+{% if feedback %}
+  <div style="margin-top: 30px;">
+    <h3>❌ Tổng hợp lỗi:</h3>
+    <ul>
+      {% for f in feedback %}
+        <li>{{ f }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<!-- Phản hồi từ AI -->
+{% if ai_feedback %}
+  <div style="margin-top: 30px; background: #fffbe6; padding: 20px; border-left: 5px solid #f1c40f; border-radius: 8px;">
+    <h3> Phản hồi từ AI:</h3>
+    <p>{{ ai_feedback }}</p>
+  </div>
+{% endif %}
+
+<!-- Quay về trang chính -->
+<div style="margin-top: 30px;">
+  <a href="/">⬅️ Quay về trang chính</a>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}Gửi bài làm{% endblock %}
+
+{% block content %}
+<h2>📤 Gửi bài làm</h2>
+
+<form method="POST" enctype="multipart/form-data" style="margin-bottom: 30px;">
+  <label for="group_name">Tên nhóm:</label><br>
+  <input type="text" name="group_name" placeholder="Nhập tên nhóm" required><br><br>
+
+  <label for="image">Chọn file (.png, .jpg, .jpeg, .pdf):</label><br>
+  <input type="file" name="image" accept=".png,.jpg,.jpeg,.pdf" required><br><br>
+
+  <button type="submit">📤 Gửi bài</button>
+</form>
+
+{% if feedback %}
+  <div style="margin-top: 30px; background-color: #e0f2f1; padding: 20px; border-left: 5px solid #009688; border-radius: 8px;">
+    <h3>🤖 Phản hồi từ AI:</h3>
+    <p>{{ feedback }}</p>
+  </div>
+{% endif %}
+
+{% if score %}
+  <div style="margin-top: 20px; background-color: #fff3e0; padding: 20px; border-left: 5px solid #ff9800; border-radius: 8px;">
+    <h3>📊 Đánh giá điểm:</h3>
+    <p>{{ score }}</p>
+  </div>
+{% endif %}
+
+<hr>
+<h2>📚 Các bài làm đã gửi</h2>
+
+{% for img in images %}
+  <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 30px; border-radius: 8px;">
+    <h3>👥 Nhóm: {{ img.group_name }}</h3>
+
+    {% if img.file_type == 'pdf' %}
+      <p>📄 <a href="{{ url_for('static', filename='uploads/' + img.filename) }}" target="_blank">Xem file PDF</a></p>
+    {% else %}
+      <img src="{{ url_for('static', filename='uploads/' + img.filename) }}" style="max-width: 300px; border-radius: 5px;">
+    {% endif %}
+
+    <p><strong>🤖 Nhận xét của AI:</strong><br>{{ img.ai_feedback }}</p>
+
+    {% if img.score_feedback %}
+      <p><strong>📊 Đánh giá điểm:</strong><br>{{ img.score_feedback }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('comment', project_id='general', image_id=img.id) }}" method="POST" style="margin-top: 20px;">
+      <label for="student_name">Tên của bạn:</label><br>
+      <input type="text" name="student_name" placeholder="Nhập tên" required><br><br>
+
+      <label for="comment_text">Nhận xét bài làm:</label><br>
+      <textarea name="comment_text" placeholder="Viết nhận xét..." required style="width:100%; height:60px;"></textarea><br><br>
+
+      <button type="submit">💬 Gửi nhận xét</button>
+    </form>
+
+    {% if img.comments %}
+      <h4 style="margin-top: 20px;">💬 Bình luận:</h4>
+      <div style="margin-left: 10px;">
+        {% for cmt in img.comments %}
+          <p><strong>{{ cmt.student_name }}:</strong> {{ cmt.comment_text }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+
+<div style="margin-top: 30px;">
+  <a href="{{ url_for('projects') }}">⬅️ Quay về danh sách đề bài</a>
+</div>
+{% endblock %}

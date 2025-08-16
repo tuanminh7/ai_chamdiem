@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% block title %}Trang chính{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    background-image: url('/static/images/nen.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .card-link {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f0f4ff, #dbeafe);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    color: #333;
+  }
+  .card-link:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #e0f2fe, #c7d2fe);
+  }
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Chọn chức năng</h2>
+  <div class="row g-4 justify-content-center">
+
+    <div class="col-md-4">
+      <a href="/exam/de1" class="card-link">
+        <div class="card-icon"></div>
+        Làm bài trắc nghiệm môn toán (Đề 1)
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="/exam/de2" class="card-link">
+        <div class="card-icon"></div>
+        Làm bài trắc nghiệm môn toán (Đề 2)
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="/exam/de3" class="card-link">
+        <div class="card-icon"></div>
+        Làm bài trắc nghiệm môn toán (Đề 3)
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="/upload_image" class="card-link">
+        <div class="card-icon"></div>
+        Nộp sản phẩm hoạt động trải nghiệm và Toán học
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="/projects" class="card-link">
+        <div class="card-icon"></div>
+        Bài làm theo chương Môn Toán
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="https://www.ilovepdf.com/vi" target="_blank" class="card-link">
+        <div class="card-icon"></div>
+        Chuyển đổi Word/PPT sang PDF (iLovePDF)
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="/enter_nickname" class="card-link">
+        <div class="card-icon"></div>
+        Game giải trí
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="/vanbai" class="card-link">
+        <div class="card-icon"></div>
+        Phân tích bài Văn
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

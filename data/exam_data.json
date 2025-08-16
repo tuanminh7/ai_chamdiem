@@ -1,0 +1,195 @@
+{
+  "de1": {
+    "multiple_choice": [
+      {
+        "question": "Kết quả của phép tính 25 + 37 là bao nhiêu?",
+        "options": ["52", "62", "60", "57"],
+        "answer": "62"
+      },
+      {
+        "question": "Số nghịch đảo của 4/5 là số nào?",
+        "options": ["5/4", "4/5", "-4/5", "-5/4"],
+        "answer": "5/4"
+      },
+      {
+        "question": "Chu vi hình vuông có cạnh 8 cm là bao nhiêu?",
+        "options": ["16 cm", "32 cm", "64 cm", "24 cm"],
+        "answer": "32 cm"
+      },
+      {
+        "question": "Số nào sau đây là số nguyên tố?",
+        "options": ["9", "21", "17", "25"],
+        "answer": "17"
+      },
+      {
+        "question": "Giá trị của biểu thức 3² + 4² là bao nhiêu?",
+        "options": ["25", "7", "12", "5"],
+        "answer": "25"
+      },
+      {
+        "question": "Diện tích hình chữ nhật có chiều dài 12 cm, chiều rộng 5 cm là bao nhiêu?",
+        "options": ["60 cm²", "34 cm²", "17 cm²", "25 cm²"],
+        "answer": "60 cm²"
+      },
+      {
+        "question": "Kết quả của phép tính 0,75 × 100 là bao nhiêu?",
+        "options": ["75", "7,5", "0,75", "750"],
+        "answer": "75"
+      },
+      {
+        "question": "Trong các phân số sau, phân số nào bằng 0,5?",
+        "options": ["1/2", "2/3", "3/4", "4/5"],
+        "answer": "1/2"
+      },
+      {
+        "question": "Giá trị tuyệt đối của -15 là bao nhiêu?",
+        "options": ["15", "-15", "0", "1"],
+        "answer": "15"
+      },
+      {
+        "question": "Số pi (π) xấp xỉ bằng giá trị nào sau đây?",
+        "options": ["3,14", "2,71", "1,41", "1,73"],
+        "answer": "3,14"
+      }
+    ],
+    "true_false": [
+      {
+        "question": "Các phát biểu về Toán học:",
+        "statements": [
+          "Tổng các góc trong của tam giác luôn bằng 180°.",
+          "Một số nguyên nhân với số âm luôn âm.",
+          "Số 0 là số chẵn.",
+          "Đường chéo của hình vuông dài hơn cạnh của nó."
+        ],
+        "answers": [true, false, true, true]
+      }
+    ]
+  },
+  "de2": {
+    "multiple_choice": [
+      {
+        "question": "Kết quả của phép nhân 7 × 8 là bao nhiêu?",
+        "options": ["54", "56", "58", "64"],
+        "answer": "56"
+      },
+      {
+        "question": "Số nào là bội chung nhỏ nhất của 6 và 8?",
+        "options": ["12", "18", "24", "48"],
+        "answer": "24"
+      },
+      {
+        "question": "Trong phân số 15/45, rút gọn được kết quả nào?",
+        "options": ["1/3", "3/9", "5/15", "1/5"],
+        "answer": "1/3"
+      },
+      {
+        "question": "Diện tích hình tròn bán kính 7 cm là bao nhiêu? (lấy π ≈ 3,14)",
+        "options": ["154 cm²", "44 cm²", "77 cm²", "314 cm²"],
+        "answer": "154 cm²"
+      },
+      {
+        "question": "Giải phương trình: x + 12 = 25",
+        "options": ["x = 37", "x = 13", "x = 12", "x = 25"],
+        "answer": "x = 13"
+      },
+      {
+        "question": "Giá trị của 2³ là bao nhiêu?",
+        "options": ["6", "8", "9", "12"],
+        "answer": "8"
+      },
+      {
+        "question": "Tỉ số phần trăm của 15 và 60 là bao nhiêu?",
+        "options": ["15%", "25%", "30%", "40%"],
+        "answer": "25%"
+      },
+      {
+        "question": "Một hình chữ nhật có chu vi 50 cm, chiều dài 15 cm. Chiều rộng là bao nhiêu?",
+        "options": ["10 cm", "12,5 cm", "15 cm", "20 cm"],
+        "answer": "10 cm"
+      },
+      {
+        "question": "Tập hợp các số tự nhiên nhỏ hơn 5 là?",
+        "options": ["{0,1,2,3,4}", "{1,2,3,4,5}", "{0,1,2,3,4,5}", "{-1,0,1,2,3,4}"],
+        "answer": "{0,1,2,3,4}"
+      },
+      {
+        "question": "Giá trị của căn bậc hai của 81 là bao nhiêu?",
+        "options": ["8", "9", "10", "81"],
+        "answer": "9"
+      }
+    ],
+    "true_false": [
+      {
+        "question": "Các phát biểu về Toán học:",
+        "statements": [
+          "Một góc vuông có số đo 90°.",
+          "Tích của hai số âm là một số dương.",
+          "Một số chia hết cho 6 thì cũng chia hết cho 3.",
+          "Tổng các góc ngoài của mọi đa giác đều là 360°."
+        ],
+        "answers": [true, true, true, true]
+      }
+    ]
+  },
+  "de3": {
+    "multiple_choice": [
+      {
+        "question": "Tìm x biết: 5x = 35",
+        "options": ["x = 7", "x = 6", "x = 8", "x = 5"],
+        "answer": "x = 7"
+      },
+      {
+        "question": "Hình nào có tất cả các cạnh bằng nhau và 4 góc vuông?",
+        "options": ["Hình chữ nhật", "Hình vuông", "Hình thoi", "Hình bình hành"],
+        "answer": "Hình vuông"
+      },
+      {
+        "question": "Một đoạn thẳng dài 2,5 m bằng bao nhiêu cm?",
+        "options": ["250 cm", "25 cm", "2500 cm", "2,5 cm"],
+        "answer": "250 cm"
+      },
+      {
+        "question": "Kết quả của 0,4 × 0,5 là bao nhiêu?",
+        "options": ["0,20", "0,9", "0,25", "0,45"],
+        "answer": "0,20"
+      },
+      {
+        "question": "Phân số nào bằng 3/4?",
+        "options": ["6/8", "9/16", "12/15", "4/3"],
+        "answer": "6/8"
+      },
+      {
+        "question": "Một ô tô đi được 120 km trong 2 giờ. Vận tốc của ô tô là bao nhiêu?",
+        "options": ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+        "answer": "60 km/h"
+      },
+      {
+        "question": "Giá trị của 5² là bao nhiêu?",
+        "options": ["10", "15", "20", "25"],
+        "answer": "25"
+      },
+      {
+        "question": "Tổng 1/2 + 1/3 bằng bao nhiêu?",
+        "options": ["5/6", "2/5", "3/5", "4/5"],
+        "answer": "5/6"
+      },
+      {
+        "question": "Số nguyên nhỏ nhất lớn hơn -3 là bao nhiêu?",
+        "options": ["-2", "-1", "0", "1"],
+        "answer": "-2"
+      }
+    ],
+    "true_false": [
+      {
+        "question": "Các phát biểu về Toán học:",
+        "statements": [
+          "Đường kính gấp đôi bán kính.",
+          "Một tam giác đều có ba góc bằng nhau.",
+          "Số 7 chia hết cho 3.",
+          "Một số chia hết cho 2 thì là số chẵn."
+        ],
+        "answers": [true, true, false, true]
+      }
+    ]
+  }
+}
