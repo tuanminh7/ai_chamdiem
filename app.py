@@ -62,7 +62,7 @@ def vanbai():
 ###
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html")###3####
 
 #  Trang nhập nickname (chỉ dùng cho game)
 @app.route("/enter_nickname")
