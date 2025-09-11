@@ -180,7 +180,7 @@ PROJECTS_FILE = os.path.join(DATA_FOLDER, 'projects.json')
 PROJECT_IMAGES_FILE = os.path.join(DATA_FOLDER, 'project_images.json')
 GENERAL_IMAGES_FILE = os.path.join(DATA_FOLDER, 'data.json')
 
-# Load đề thi trắc nghiệm
+# Load đề thi trắc n
 def load_exam(de_id):
     with open(EXAM_FILE, 'r', encoding='utf-8') as f:
         data = json.load(f)
