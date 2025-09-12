@@ -97,7 +97,7 @@ def get_questions():
         random.shuffle(q["options"])
     return jsonify(questions[:20])
 
-#  API nộp điểm theo từng bài
+# 
 @app.route("/submit_score", methods=["POST"])
 def submit_score():
     nickname = session.get("nickname")
