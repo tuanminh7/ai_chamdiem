@@ -19,7 +19,7 @@ app.secret_key = 'your_secret_key_here'
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDtAEJw1iazURS1xLduXkhQCQBD2RWYRls"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyDpcoZtAwSf7kXBJB954SD4pje-bv-XgJ0"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 model = genai.GenerativeModel("models/gemini-1.5-flash")
 ###########
