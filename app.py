@@ -384,14 +384,25 @@ def project(project_id):
     )
 
 # Bình luận ảnh theo đề bài
+# Bình luận ảnh theo đề bài
 @app.route('/comment/<project_id>/<image_id>', methods=['POST'])
 def comment(project_id, image_id):
     student_name = request.form.get('student_name', '').strip()
     comment_text = request.form.get('comment_text', '').strip()
+    score = request.form.get('score', '').strip()
 
     # Kiểm tra dữ liệu đầu vào
-    if not student_name or not comment_text:
-        flash("Vui lòng nhập đầy đủ tên và nội dung bình luận.")
+    if not student_name or not comment_text or not score:
+        flash("Vui lòng nhập đầy đủ tên, bình luận và điểm số.")
+        return redirect(url_for('project', project_id=project_id))
+
+    try:
+        score = float(score)
+        if score < 0 or score > 10:
+            flash("Điểm phải nằm trong khoảng 0 - 10.")
+            return redirect(url_for('project', project_id=project_id))
+    except ValueError:
+        flash("Điểm phải là số hợp lệ.")
         return redirect(url_for('project', project_id=project_id))
 
     # Tải dữ liệu ảnh
@@ -400,7 +411,7 @@ def comment(project_id, image_id):
 
     if images is None:
         flash("Đề bài không tồn tại.")
-        return redirect(url_for('home'))  # hoặc url_for('projects')
+        return redirect(url_for('home'))
 
     # Tìm ảnh cần bình luận
     target_image = next((img for img in images if img.get("id") == image_id), None)
@@ -411,57 +422,50 @@ def comment(project_id, image_id):
 
     # Kiểm tra bình luận trùng (tuỳ chọn)
     for c in target_image.get("comments", []):
-        if c["student_name"] == student_name and c["comment_text"] == comment_text:
+        if (c["student_name"] == student_name 
+            and c["comment_text"] == comment_text 
+            and c.get("score") == score):
             flash("Bình luận đã tồn tại.")
             return redirect(url_for('project', project_id=project_id))
 
     # Thêm bình luận mới
     target_image.setdefault("comments", []).append({
         "student_name": student_name,
-        "comment_text": comment_text
+        "comment_text": comment_text,
+        "score": score
     })
+
+    # 👉 Tính điểm trung bình của ảnh sau khi thêm
+    scores = [c["score"] for c in target_image.get("comments", []) if "score" in c]
+    avg_score = round(sum(scores) / len(scores), 2) if scores else 0
+    target_image["average_score"] = avg_score  # lưu lại để hiển thị
 
     # Lưu lại dữ liệu
     all_images[project_id] = images
     save_project_images(all_images)
 
-    flash("Bình luận đã được thêm thành công.")
+    flash(f"Bình luận đã được thêm. Điểm trung bình hiện tại: {avg_score}")
     return redirect(url_for('project', project_id=project_id))
-
 
 
 # Gửi ảnh không phân loại theo đề bài
 
-def generate_score_feedback(text_or_image):
-    prompt = """
-    Dựa trên bài làm của học sinh, hãy chấm điểm theo các tiêu chí sau:
-    1. Nội dung đầy đủ (0–10)
-    2. Trình bày rõ ràng (0–10)
-    3. Kỹ thuật chính xác (0–10)
-    4. Thái độ học tập (0–10)
-    Sau đó, tổng kết điểm trung bình và đưa ra nhận xét ngắn gọn. Trả lời bằng tiếng Việt.
+def extract_average_from_feedback(feedback: str):
     """
-    response = model.generate_content([text_or_image, prompt])
-    return response.text
+    Thử tìm số điểm trung bình trong chuỗi feedback của AI.
+    Ví dụ: 'Tổng điểm trung bình: 8.5' -> 8.5
+    Nếu không tìm thấy thì trả về None.
+    """
+    if not feedback:
+        return None
+    match = re.search(r'(\d+(\.\d+)?)', feedback)
+    if match:
+        try:
+            return float(match.group(1))
+        except:
+            return None
+    return None
 
-
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'pdf'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def extract_text_from_pdf(filepath):
-    text = ""
-    with fitz.open(filepath) as doc:
-        for page in doc:
-            text += page.get_text()
-    return text
-
-def generate_feedback(text):
-    if not text.strip():
-        return "Không tìm thấy nội dung trong file PDF."
-    # Bạn có thể thay bằng mô hình AI thật
-    return f" AI đã đọc nội dung và nhận xét: \"{text[:300]}...\""
 
 @app.route('/upload_image', methods=['GET', 'POST'])
 def upload_image():
@@ -507,10 +511,12 @@ def upload_image():
 
                 score_response = model.generate_content([
                     img,
-                    """Dựa trên bài làm của học sinh, hãy khen theo các tiêu chí sau:
-                    1. Nội dung đầy đủ 
-                    2. Trình bày rõ ràng 
-                    Sau đó đưa ra nhận xét ngắn gọn. Trả lời bằng tiếng Việt."""
+                    """Dựa trên bài làm của học sinh, hãy chấm điểm theo các tiêu chí sau:
+                    1. Nội dung đầy đủ (0–10)
+                    2. Trình bày rõ ràng (0–10)
+                    3. Kỹ thuật chính xác (0–10)
+                    4. Thái độ học tập (0–10)
+                    Sau đó, tổng kết điểm trung bình và đưa ra nhận xét ngắn gọn. Trả lời bằng tiếng Việt."""
                 ])
                 score_feedback = score_response.text
 
@@ -522,18 +528,46 @@ def upload_image():
             ai_feedback = f"❌ Lỗi khi xử lý file: {str(e)}"
             score_feedback = ""
 
-        images.append({
+        # 🔹 Trích số điểm trung bình từ phản hồi AI (nếu có)
+        ai_score = extract_average_from_feedback(score_feedback)
+
+        new_image = {
             "id": file_id,
             "filename": filename,
             "group_name": group_name,
             "file_type": file_ext,
             "ai_feedback": ai_feedback,
             "score_feedback": score_feedback,
-            "comments": []
-        })
+            "comments": [],
+            "scores": [],            # lưu tất cả điểm số
+            "average_score": None    # điểm trung bình
+        }
+
+        if ai_score is not None:
+            new_image["scores"].append(ai_score)
+            new_image["average_score"] = ai_score
+
+        images.append(new_image)
 
         all_images["general"] = images
         save_project_images(all_images)
 
-    return render_template('upload_image.html', feedback=ai_feedback, score=score_feedback, images=images)
-# Chạy ứng dụng
+    # 🔹 Cập nhật lại average_score cho từng ảnh dựa trên scores
+    for img in images:
+        if "scores" in img and img["scores"]:
+            avg = sum(img["scores"]) / len(img["scores"])
+            img["average_score"] = round(avg, 2)
+        else:
+            img["average_score"] = None
+
+    return render_template('upload_image.html',
+                           feedback=ai_feedback,
+                           score=score_feedback,
+                           images=images)
+# Chạy ứng dụng  
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+

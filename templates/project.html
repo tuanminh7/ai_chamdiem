@@ -37,16 +37,24 @@
       <p><strong> Đánh giá điểm:</strong><br>{{ img.score_feedback }}</p>
     {% endif %}
 
-    <h4>💬 Bình luận</h4>
+    <h4>💬 Bình luận & Chấm điểm</h4>
     <form method="POST" action="{{ url_for('comment', project_id=project.id, image_id=img.id) }}">
       <input type="text" name="student_name" placeholder="Tên học sinh" required>
       <input type="text" name="comment_text" placeholder="Bình luận" required>
-      <button type="submit">Gửi bình luận</button>
+      <input type="number" name="score" placeholder="Điểm (0-10)" min="0" max="10" step="0.1" required>
+      <button type="submit">Gửi</button>
     </form>
+
+    <p><strong>📊 Điểm trung bình:</strong> 
+       {{ img.average_score if img.average_score else "Chưa có" }}
+    </p>
 
     <ul>
       {% for cmt in img.comments %}
-        <li><strong>{{ cmt.student_name }}:</strong> {{ cmt.comment_text }}</li>
+        <li>
+          <strong>{{ cmt.student_name }}:</strong> {{ cmt.comment_text }}
+          {% if cmt.score is defined %} (Điểm: {{ cmt.score }}){% endif %}
+        </li>
       {% endfor %}
     </ul>
   </div>
