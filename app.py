@@ -565,8 +565,8 @@ def upload_image():
                            score=score_feedback,
                            images=images)
 # Chạy ứng dụng  
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+    #app.run(debug=True)
 
 
 
